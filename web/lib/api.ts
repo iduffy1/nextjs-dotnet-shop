@@ -1,3 +1,5 @@
+import "server-only";
+
 import type { Product } from "./types";
 
 const API_URL = process.env.API_URL ?? "http://localhost:5000";
@@ -15,6 +17,3 @@ export async function getProduct(id : string): Promise<Product | null> {
     return res.json();
 }
 
-export function formatPrice(price: number) {
-    return new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(price);
-}

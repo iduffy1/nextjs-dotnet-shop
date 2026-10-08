@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProduct, formatPrice } from "@/lib/api";
+import { getProduct } from "@/lib/api";
+import { formatPrice } from "@/lib/format";
+import AddToBasketButton from "@/components/AddToBasketButton";
 
 export async function generateMetadata({ params }: PageProps<"/products/[id]">) {
     const { id } = await params;
@@ -24,13 +26,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
             <p className="text-3xl font-bold mt-1">{product.name}</p>
             <p className="text-gray-700 mt-4">{product.description}</p>
             <p className="text-2xl font-bold mt-6">{formatPrice(product.price)}</p>
-
-            <button
-                disabled
-                className="mt-6 rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
-            >
-                Add to basket (step 4)
-            </button>
+            <AddToBasketButton product={product} />
         </main>
     )
 

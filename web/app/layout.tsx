@@ -1,5 +1,8 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { BasketProvider } from "@/components/BasketProvider";
+import BasketLink from "@/components/BasketLink";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,10 +26,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <header className="border-b p-4 font-bold">
-          <a href="/">Shop</a>
-        </header>
-        {children}
+        <BasketProvider>
+          <header className="border-b p-4 font-bold">
+            <Link href="/">Shop</Link>
+            <BasketLink />
+          </header>
+          {children}
+        </BasketProvider>
       </body>
     </html>
   );

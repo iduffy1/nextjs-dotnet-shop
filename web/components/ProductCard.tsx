@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
-import { formatPrice } from "@/lib/api";
+import { formatPrice } from "@/lib/format";
 
 type Props = { product: Product };
 

@@ -16,7 +16,6 @@ api.MapGet("/products", () => products);
 
 api.MapGet("/products/{id:int}", async (int id) => 
     {
-        await Task.Delay(1500);
         return products.FirstOrDefault(p => p.Id == id) is {} product
             ? Results.Ok(product)
             : Results.NotFound();
