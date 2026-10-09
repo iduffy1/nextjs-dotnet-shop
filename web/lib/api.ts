@@ -23,6 +23,7 @@ export async function createOrder(lines: OrderLineRequest[]) : Promise<Order> {
         headers: { "Content-Type" : "application/json" },
         body: JSON.stringify({ lines })
     });
+    if (res.status === 404) return null;
     if (!res.ok) {
         const problem = await res.json().catch(() => null);
         const message = problem?.errors
