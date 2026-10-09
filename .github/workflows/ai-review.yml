@@ -27,6 +27,15 @@ jobs:
             -- . ':(exclude)**/package-lock.json' > diff.txt
           echo "Diff size: $(wc -c < diff.txt) bytes"
 
+      - name: Test GitHub Models directly
+        run: |
+          curl -sS -i https://models.github.ai/inference/chat/completions \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"Say hello"}]}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run AI review
         run: node .github/scripts/ai-review.mjs
         env:
