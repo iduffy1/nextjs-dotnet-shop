@@ -35,9 +35,19 @@ const res = await fetch("https://models.github.ai/inference/chat/completions", {
     ],
   }),
 });
-if (!res.ok) throw new Error(`Model call failed: ${res.status} ${await res.text()}`);
 
-const data = await res.json();
+const text = await res.text();
+console.log(`Model call: ${res.status} ${res.url} (${res.headers.get("content-type")})`);
+
+if (!res.ok) throw new Error(`Model call failed: ${res.status} ${text.slice(0, 500)}`);
+
+let data;
+try {
+  data = JSON.parse(text);
+} catch {
+  throw new Error(`Model returned non-JSON: ${text.slice(0, 500)}`);
+}
+
 const review = data.choices[0].message.content;
 
 // 2. Post it as a PR comment
