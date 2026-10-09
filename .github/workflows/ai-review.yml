@@ -7,7 +7,6 @@ on:
 permissions:
   contents: read
   pull-requests: write   # to post the comment
-  models: read           # to call GitHub Models
 
 jobs:
   review:
@@ -27,18 +26,10 @@ jobs:
             -- . ':(exclude)**/package-lock.json' > diff.txt
           echo "Diff size: $(wc -c < diff.txt) bytes"
 
-      - name: Test GitHub Models directly
-        run: |
-          curl -sS -i https://models.github.ai/inference/chat/completions \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"Say hello"}]}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Run AI review
         run: node .github/scripts/ai-review.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
