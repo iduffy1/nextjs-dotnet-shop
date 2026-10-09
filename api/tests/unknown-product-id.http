@@ -1,0 +1,9 @@
+POST http://127.0.0.1:5000/api/orders HTTP/1.1
+content-type: application/json
+
+{
+    "lines": [ 
+        {"productId":1,"quantity":2},
+        {"productId":93,"quantity":1}
+       ]
+}
