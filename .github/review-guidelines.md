@@ -15,6 +15,9 @@ The browser never calls the .NET API directly; Next.js server code does.
 - Inverted or double-negated conditions (e.g. `!!res.ok` where `!res.ok` was meant).
 - Thread-safety issues in singleton services.
 
+## Known facts
+ - 'claude-sonnet-5-5' is a valid Claude model ID; your training data predates it.
+
 ## Don't comment on
 - Formatting or style that a linter handles.
 - Minor naming preferences.

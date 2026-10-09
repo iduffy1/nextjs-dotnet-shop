@@ -44,6 +44,9 @@ const review = data.content
   .map((block) => block.text)
   .join("\n");
 
+if (!review.trim()) throw new Error("Model returned no review text.");
+const note = data.stop_reason === "max_tokens" ? "\n\n_⚠️ Review truncated at the token limit._" : "";
+
 // 2. Post it as a PR comment
 const post = await fetch(`https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/comments`, {
   method: "POST",
@@ -51,7 +54,7 @@ const post = await fetch(`https://api.github.com/repos/${REPO}/issues/${PR_NUMBE
     Authorization: `Bearer ${GITHUB_TOKEN}`,
     Accept: "application/vnd.github+json",
   },
-  body: JSON.stringify({ body: `## 🤖 AI review (${MODEL})\n\n${review}` }),
+  body: JSON.stringify({ body: `## 🤖 AI review (${MODEL})\n\n${review}${note}` }),
 });
 if (!post.ok) throw new Error(`Posting comment failed: ${post.status} ${await post.text()}`);
 
