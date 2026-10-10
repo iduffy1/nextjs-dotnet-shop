@@ -6,7 +6,7 @@ const API_URL = process.env.API_URL ?? "http://localhost:5000";
 
 export async function getProducts(): Promise<Product[]> {
     const res = await fetch(`${API_URL}/api/products`, { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to load products: ${res.status}");
+    if (!res.ok) throw new Error(`Failed to load products: ${res.status}`);
     return res.json();
 }
 
