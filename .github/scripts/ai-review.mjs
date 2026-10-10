@@ -69,7 +69,7 @@ const existing = comments.find((c) => c.user?.login === "github-actions[bot]" &&
 // Update it or create new one
 const url = existing
   ? `https://api.github.com/repos/${REPO}/issues/comments/${existing.id}`
-  : `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/comments}`;
+  : `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/comments`;
 
 const post = await fetch(url, {
   method: "POST",
