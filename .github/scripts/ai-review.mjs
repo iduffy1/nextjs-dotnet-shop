@@ -72,7 +72,7 @@ const url = existing
   : `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/comments`;
 
 const post = await fetch(url, {
-  method: "POST",
+  method: existing ? "PATCH" : "POST",
   headers,
   body: JSON.stringify({ body }),
 });
