@@ -60,7 +60,7 @@ const body =
 
   // Find an existing bot comment
 const listRes = await fetch(
-  'https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/comments?per_page=100', {headers}
+  `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/comments?per_page=100`, {headers}
 );
 if (!listRes.ok) throw new Error(`Listing comments failed: ${listRes.status} ${await listRes.text()}`);
 const comments = await listRes.json();
