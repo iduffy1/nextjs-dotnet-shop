@@ -64,7 +64,7 @@ const listRes = await fetch(
 );
 if (!listRes.ok) throw new Error(`Listing comments failed: ${listRes.status} ${await listRes.text()}`);
 const comments = await listRes.json();
-const existing = comments.find((c) => c.user?.login === "github-actions[bot]" && c.body?.includes(MARGER));
+const existing = comments.find((c) => c.user?.login === "github-actions[bot]" && c.body?.includes(MARKER));
 
 // Update it or create new one
 const url = existing
