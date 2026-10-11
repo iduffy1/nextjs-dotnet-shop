@@ -10,6 +10,7 @@ import path from "node:path";
 const MAX_LIST_ENTRIES = 300;   // cap on list_files output
 const MAX_READ_LINES = 400;     // cap on lines returned by one read_file call
 const MAX_READ_CHARS = 30_000;  // cap on characters returned by one read_file call
+const MAX_LINE_LENGTH = 1_000;
 
 // ---- 1. Definitions sent to the model ----------------------------------------------------------
 
@@ -111,6 +112,9 @@ export function createToolRunner(repoRoot) {
     let last = start - 1;
     for (let i = start; i <= end; i++) {
       const line = `${i}: ${lines[i - 1]}\n`;
+      if (lines.length > MAX_LINE_LENGTH) {
+        line = line.slice(0, MAX_LINE_LENGTH) + `...(truncated)`;
+      }
       if (out.length + line.length > MAX_READ_CHARS) break;
       out += line;
       last = i;
