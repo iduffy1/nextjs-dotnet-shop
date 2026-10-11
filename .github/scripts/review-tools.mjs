@@ -111,10 +111,9 @@ export function createToolRunner(repoRoot) {
     let out = "";
     let last = start - 1;
     for (let i = start; i <= end; i++) {
-      const line = `${i}: ${lines[i - 1]}\n`;
-      if (lines.length > MAX_LINE_LENGTH) {
-        line = line.slice(0, MAX_LINE_LENGTH) + `...(truncated)`;
-      }
+      let text = lines[i-1];
+      if (lines.length > MAX_LINE_LENGTH) text = text.slice(0, MAX_LINE_LENGTH) + "..(truncated)";
+      const line = `${i}: ${text}\n`
       if (out.length + line.length > MAX_READ_CHARS) break;
       out += line;
       last = i;
