@@ -16,6 +16,7 @@ jobs:
   review:
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
+    timeout-minutes: 10     # hard stop if the agent or an API call hangs
     steps:
       - uses: actions/checkout@v4
         with:
